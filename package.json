@@ -237,8 +237,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
-    "compile": "webpack",
+    "vscode:prepublish": "yarn run vendor && yarn run package",
+    "vendor": "node scripts/build-vendor.js",
+    "compile": "yarn run vendor && webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
     "test-compile": "tsc -p ./",
@@ -268,6 +269,9 @@
     "webpack-cli": "^4.4.0"
   },
   "dependencies": {
+    "@hpcc-js/wasm": "2.14.1",
+    "d3": "7.8.5",
+    "d3-graphviz": "5.0.2",
     "semver": "^7.3.5"
   }
 }

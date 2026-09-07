@@ -117,12 +117,33 @@ export async function activate(
           "Graph",
           "Terrastate – Graph",
           vscode.ViewColumn.One,
-          { enableScripts: true }
+          {
+            enableScripts: true,
+            localResourceRoots: [
+              vscode.Uri.joinPath(context.extensionUri, "media", "vendor"),
+            ],
+          }
         );
 
         panel.iconPath = vscode.Uri.joinPath(
           context.extensionUri,
           "media/terrastate.png"
+        );
+
+        const d3Uri = panel.webview.asWebviewUri(
+          vscode.Uri.joinPath(context.extensionUri, "media/vendor/d3.min.js")
+        );
+        const hpccUri = panel.webview.asWebviewUri(
+          vscode.Uri.joinPath(
+            context.extensionUri,
+            "media/vendor/graphviz.umd.js"
+          )
+        );
+        const d3GraphvizUri = panel.webview.asWebviewUri(
+          vscode.Uri.joinPath(
+            context.extensionUri,
+            "media/vendor/d3-graphviz.min.js"
+          )
         );
 
         panel.webview.html = `
@@ -132,9 +153,9 @@ export async function activate(
         </head>
         <body>
           <div id="main"></div>
-          <script src="https://d3js.org/d3.v5.min.js"></script>
-          <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
-          <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+          <script src="${d3Uri}"></script>
+          <script src="${hpccUri}"></script>
+          <script src="${d3GraphvizUri}"></script>
           <script>
             const dot = ${JSON.stringify(await graph(arg))}
             d3.select("#main").graphviz().renderDot(dot)
