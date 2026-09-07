@@ -32,16 +32,18 @@ jobs:
         run: yarn run vscode:prepublish
 
       - name: Package .vsix
-        run: npx @vscode/vsce package --no-yarn
+        run: |
+          npx @vscode/vsce package --no-yarn
+          mv terrastate-*.vsix terrastate.vsix
 
       - name: Upload .vsix as build artifact
         uses: actions/upload-artifact@v4
         with:
           name: terrastate-vsix
-          path: "*.vsix"
+          path: terrastate.vsix
 
       - name: Attach .vsix to GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: "*.vsix"
+          files: terrastate.vsix

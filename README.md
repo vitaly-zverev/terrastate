@@ -13,6 +13,26 @@
 
 Terrastate is a [Visual Studio Code](https://code.visualstudio.com/) [extension](https://marketplace.visualstudio.com/VSCode) that can be used to monitor, deploy and destroy Terraform resources. You can find the extension [here](https://marketplace.visualstudio.com/items?itemName=rohinivsenthil.terrastate).
 
+## This fork
+
+This fork fixes the "Terrastate: Graph" webview, which previously loaded
+`@hpcc-js/wasm`, `d3` and `d3-graphviz` from unpkg.com at runtime and could
+fail to render (see [#13](https://github.com/rohinivsenthil/terrastate/pull/13)
+upstream). Every push is built and packaged by CI; tagged releases attach a
+ready-to-install `.vsix`:
+
+<div align="center">
+  <a href="https://github.com/vitaly-zverev/terrastate/releases/latest"><img src="https://img.shields.io/github/v/release/vitaly-zverev/terrastate" /></a>
+  <a href="https://github.com/vitaly-zverev/terrastate/actions/workflows/build.yml"><img src="https://github.com/vitaly-zverev/terrastate/actions/workflows/build.yml/badge.svg" /></a>
+</div>
+
+**[⬇ Download the latest .vsix](https://github.com/vitaly-zverev/terrastate/releases/latest/download/terrastate.vsix)**
+— then install it with:
+
+```bash
+code --install-extension terrastate.vsix
+```
+
 <div align="center">
   <img src="https://user-images.githubusercontent.com/42040329/129024519-2017ff8d-229a-402d-83dd-0d623a84ec80.gif"/>
   <br/>
